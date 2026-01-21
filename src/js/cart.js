@@ -10,13 +10,23 @@ function getCart() {
 
 // Render cart items and total
 function renderCartContents() {
-  const cartItems = getCart();
+  const cartItems = getCart() || []; // Ensure array
+
+  const listEl = document.querySelector(".product-list");
+  const totalEl = document.getElementById("cartTotal");
+
+  if (!listEl || !totalEl) return; // Exit if HTML elements missing
+
+  if (cartItems.length === 0) {
+    listEl.innerHTML = "<li>Your cart is empty</li>";
+    totalEl.textContent = "0.00";
+    return;
+  }
 
   const htmlItems = cartItems.map((item, index) =>
     cartItemTemplate(item, index),
   );
-  const listEl = document.querySelector(".product-list");
-  if (listEl) listEl.innerHTML = htmlItems.join("");
+  listEl.innerHTML = htmlItems.join("");
 
   // Calculate total
   const total = cartItems.reduce((sum, item) => {
@@ -25,9 +35,9 @@ function renderCartContents() {
     return sum + price * qty;
   }, 0);
 
-  const totalEl = document.getElementById("cartTotal");
-  if (totalEl) totalEl.textContent = total.toFixed(2);
+  totalEl.textContent = total.toFixed(2);
 }
+
 
 // Template for a single cart item
 function cartItemTemplate(item, index) {
