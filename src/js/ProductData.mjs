@@ -1,21 +1,16 @@
-function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error("Bad Response");
-  }
-}
-
+// ProductData.mjs
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    this.path = `../json/${this.category}.json`;
+    this.path = `/json/${this.category}.json`;
   }
-  getData() {
+
+  async getData() {
     return fetch(this.path)
-      .then(convertToJson)
+      .then((response) => response.json())
       .then((data) => data);
   }
+
   async findProductById(id) {
     const products = await this.getData();
     return products.find((item) => item.Id === id);

@@ -1,16 +1,25 @@
+// cart.js
 import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
+  if (!cartItems || cartItems.length === 0) {
+    document.querySelector(".product-list").innerHTML = "<li>Your cart is empty</li>";
+    return;
+  }
+  
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
 function cartItemTemplate(item) {
+  // Convert ../images/ to /images/ for proper pathing
+  const imagePath = item.Image.replace('../', '/');
+  
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${imagePath}"
       alt="${item.Name}"
     />
   </a>

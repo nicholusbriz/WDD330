@@ -1,36 +1,36 @@
-// src/js/ProductList.mjs
-import { renderListWithTemplate } from "./utils.mjs";
-
-function productCardTemplate(product) {
-  const { Id, Brand, Name, FinalPrice, Image } = product;
-  const price = Number(FinalPrice).toFixed(2);
-  return `
-    <li class="product-card">
-      <a href="/product_pages/?product=${encodeURIComponent(Id)}" aria-label="${Brand} ${Name}">
-        <img src="${Image}" alt="Image of ${Brand} ${Name}" loading="lazy">
-        <h2 class="card__brand">${Brand}</h2>
-        <h3 class="card__name">${Name}</h3>
-        <p class="product-card__price">$${price}</p>
-      </a>
-    </li>
-  `;
-}
+﻿// ProductList.mjs
+import { renderListWithTemplate } from './utils.mjs';
 
 export default class ProductList {
   constructor(category, dataSource, listElement) {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
-    this.products = [];
   }
 
   async init() {
     const list = await this.dataSource.getData();
-    this.products = this.category ? list.filter(p => p.Category === this.category) : list;
-    this.renderList(this.products);
+    this.renderList(list);
   }
 
   renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
+    renderListWithTemplate(productCardTemplate, this.listElement, list);
   }
+}
+
+function productCardTemplate(product) {
+  // Convert ../images/ to /images/ for proper pathing
+  const imagePath = product.Image.replace('../', '/');
+  
+  return `<li class="product-card">
+    <a href="product_pages/index.html?product=${product.Id}">
+      <img
+        src="${imagePath}"
+        alt="${product.Name}"
+      />
+      <h3 class="card__brand">${product.Brand.Name}</h3>
+      <h2 class="card__name">${product.NameWithoutBrand}</h2>
+      <p class="product-card__price">$${product.FinalPrice}</p>
+    </a>
+  </li>`;
 }
