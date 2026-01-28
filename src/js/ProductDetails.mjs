@@ -1,4 +1,8 @@
-import { getLocalStorage, setLocalStorage, loadHeaderFooter } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+} from './utils.mjs';
 loadHeaderFooter();
 
 export default class ProductDetails {
@@ -14,19 +18,20 @@ export default class ProductDetails {
   }
 
   addToCart() {
-    let cart = getLocalStorage("so-cart") || [];
+    let cart = getLocalStorage('so-cart') || [];
     cart.push(this.product);
-    setLocalStorage("so-cart", cart);
+    setLocalStorage('so-cart', cart);
 
-    alert("Product added to cart!");
+    alert('Product added to cart!');
   }
 
   renderProductDetails() {
-    document.querySelector("title").textContent = `SleepOutside | ${this.product.Name}`;
+    document.querySelector('title').textContent =
+      `SleepOutside | ${this.product.Name}`;
 
-    const imagePath = this.product.Image.replace("../", "/");
+    const imagePath = this.product.Image.replace('../', '/');
 
-    const main = document.querySelector("main");
+    const main = document.querySelector('main');
     main.innerHTML = `
       <section class="product-detail">
         <h3>${this.product.Brand.Name}</h3>
@@ -46,11 +51,12 @@ export default class ProductDetails {
     `;
 
     // ✅ Attach event listener AFTER rendering
-    document.getElementById("addToCart")
-      .addEventListener("click", this.addToCart.bind(this));
+    document
+      .getElementById('addToCart')
+      .addEventListener('click', this.addToCart.bind(this));
   }
 
   stripHtmlTags(html) {
-    return html.replace(/<\/?[^>]+(>|$)/g, "");
+    return html.replace(/<\/?[^>]+(>|$)/g, '');
   }
 }

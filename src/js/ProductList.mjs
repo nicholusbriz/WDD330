@@ -1,6 +1,5 @@
 ﻿// ProductList.mjs
-import { renderListWithTemplate } from './utils.mjs';
-import { loadHeaderFooter } from "./utils.mjs";
+import { renderListWithTemplate, loadHeaderFooter } from './utils.mjs';
 loadHeaderFooter();
 
 export default class ProductList {
@@ -22,7 +21,7 @@ export default class ProductList {
 
 function productCardTemplate(product) {
   const imagePath = product.Image.replace('../', '/');
-  
+
   return `<li class="product-card">
     <a href="product_pages/index.html?product=${product.Id}">
       <img

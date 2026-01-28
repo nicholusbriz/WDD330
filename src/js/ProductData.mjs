@@ -1,5 +1,5 @@
 // ProductData.mjs
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter } from './utils.mjs';
 loadHeaderFooter();
 export default class ProductData {
   constructor(category) {
