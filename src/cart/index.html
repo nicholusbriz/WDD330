@@ -1,25 +1,48 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Cart</title>
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
 
-  <body>
-    <header class="divider" id="main-header"></header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sleep Outside | Cart</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
 
-    <main class="divider">
-      <section class="products">
-        <h2>My Cart</h2>
-        <ul class="cart-list">
-          <!-- Cart items will be dynamically inserted here -->
-        </ul>
-      </section>
-    </main>
+<body>
+  <header class="divider" id="main-header"></header>
 
-    <footer id="main-footer"></footer>
-    <script src="../js/cart.js" type="module"></script>
-  </body>
+  <main class="divider">
+    <section class="products">
+      <h2>My Cart</h2>
+      <ul class="cart-list">
+        <!-- Cart items will be dynamically inserted here -->
+      </ul>
+    </section>
+
+    <section class="cart-summary">
+      <h2>Order Summary</h2>
+      <div class="summary-item">
+        <span>Subtotal:</span>
+        <span id="subtotal">$0.00</span>
+      </div>
+      <div class="summary-item">
+        <span>Tax (6%):</span>
+        <span id="tax">$0.00</span>
+      </div>
+      <div class="summary-item">
+        <span>Shipping:</span>
+        <span id="shipping">$0.00</span>
+      </div>
+      <div class="summary-item total">
+        <span>Total:</span>
+        <span id="total">$0.00</span>
+      </div>
+      <a href="/checkout/index.html" class="checkout-btn">Proceed to Checkout</a>
+    </section>
+  </main>
+
+  <footer id="main-footer"></footer>
+  <script src="../js/cart.js" type="module"></script>
+</body>
+
 </html>

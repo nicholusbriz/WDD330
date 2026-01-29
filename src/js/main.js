@@ -1,12 +1,16 @@
 ﻿// main.js
-import ProductData from './ProductData.mjs';
-import ProductList from './ProductList.mjs';
-// main.js
+import ExternalServices from './ExternalServices.mjs';
+import CategoryManager from './CategoryManager.mjs';
 import { loadHeaderFooter } from './utils.mjs';
+
 loadHeaderFooter();
 
-const dataSource = new ProductData('tents');
-const listElement = document.querySelector('.product-list');
-const productList = new ProductList('tents', dataSource, listElement);
+// Initialize category manager
+const dataSource = new ExternalServices();
+const categoryManager = new CategoryManager(dataSource);
 
-productList.init();
+// Make filterByCategory available globally for onclick handlers
+window.filterByCategory = async (category) => await categoryManager.filterByCategory(category);
+
+// Initialize the page
+categoryManager.initialize();
