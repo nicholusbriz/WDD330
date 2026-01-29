@@ -22,34 +22,34 @@ document
     checkout.calculateOrderTotal();
 
     try {
-      // Form validation (REQUIRED by W04)
-      const form = e.target;
-      const chk_status = form.checkValidity();
-      form.reportValidity();
-      
-      if (!chk_status) {
-        return; // Stop if form is not valid
-      }
+      // Form validation
+    const form = e.target;
+    const isFormValid = form.checkValidity();
+    form.reportValidity();
+    
+    if (!isFormValid) {
+      return; // Stop if form is not valid
+    }
 
       const response = await checkout.checkout(e.target);
       // Success: Clear cart and redirect to success page
       localStorage.removeItem('so-cart');
       window.location.href = '/checkout/success.html';
     } catch (error) {
-      // Handle detailed error messages from server
-      let errorMessage = 'Order processing failed. Please check your information and try again.';
+      // Show user-friendly error message
+      let userMessage = 'Order processing failed. Please check your information and try again.';
       
+      // If server sent specific error details, use those
       if (error.name === 'servicesError' && error.message) {
-        // Extract specific error details from server response
         if (typeof error.message === 'string') {
-          errorMessage = error.message;
+          userMessage = error.message;
         } else if (error.message.message) {
-          errorMessage = error.message.message;
+          userMessage = error.message.message;
         } else if (Array.isArray(error.message)) {
-          errorMessage = error.message.join(', ');
+          userMessage = error.message.join(', ');
         }
       }
       
-      alertMessage(errorMessage);
+      alertMessage(userMessage);
     }
   });

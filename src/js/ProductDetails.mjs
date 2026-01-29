@@ -15,7 +15,7 @@ export default class ProductDetails {
 
   async init() {
     const response = await this.dataSource.findProductById(this.productId);
-    // Handle the nested Result structure from the API
+    // Extract actual product from API response wrapper
     this.product = response.Result || response;
     this.renderProductDetails();
   }
@@ -37,19 +37,16 @@ export default class ProductDetails {
     document.querySelector('title').textContent =
       `SleepOutside | ${this.product.Name || this.product.NameWithoutBrand || 'Product'}`;
 
-    // Handle image from API structure
-    const getImage = (p) => {
-      if (!p) return '';
-      // Handle API structure with Images object
-      if (p.Images && p.Images.PrimaryLarge) {
-        return p.Images.PrimaryLarge;
+    // Get product image from different possible locations
+    const getImage = (product) => {
+      if (!product) return '';
+      
+      // image locations the API might
+      if (product.Images?.PrimaryLarge) return product.Images.PrimaryLarge;
+      if (product.PrimaryLarge) {
+        return typeof product.PrimaryLarge === 'string' ? product.PrimaryLarge : product.PrimaryLarge.Url;
       }
-      // Fallback for other structures
-      if (p.PrimaryLarge) {
-        if (typeof p.PrimaryLarge === 'string') return p.PrimaryLarge;
-        if (p.PrimaryLarge.Url) return p.PrimaryLarge.Url;
-      }
-      if (p.Image) return p.Image.replace('../', '/');
+      if (product.Image) return product.Image.replace('../', '/');
       return '';
     };
 

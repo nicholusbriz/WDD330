@@ -14,7 +14,7 @@ async function convertToJson(res) {
 
 export default class ExternalServices {
   constructor() {
-    // Pure API service - no business logic
+    // API service 
   }
 
   // Get products for a specific category from API

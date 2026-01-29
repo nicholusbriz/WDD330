@@ -32,16 +32,11 @@ export default class CheckoutProcess {
   }
 
   calculateOrderTotal() {
-    // Calculate tax (6% of subtotal)
-    this.tax = this.itemTotal * 0.06;
-
-    // Calculate shipping ($10 for first item + $2 for each additional)
-    this.shipping = this.list.length > 0 ? 10 + (this.list.length - 1) * 2 : 0;
-
-    // Calculate order total
+    // Simple tax and shipping calculation
+    this.tax = this.itemTotal * 0.06; // 6% tax
+    this.shipping = this.list.length > 0 ? 10 + (this.list.length - 1) * 2 : 0; // $10 + $2 each
     this.orderTotal = this.itemTotal + this.tax + this.shipping;
 
-    // Display the totals
     this.displayOrderTotals();
   }
 
@@ -96,9 +91,6 @@ export default class CheckoutProcess {
       shipping: this.shipping,
       tax: this.tax.toFixed(2),
     };
-
-    // Debug: Log the order data to see what's being sent
-    console.log('Order data being sent:', orderData);
 
     // Format expiration date from YYYY-MM to MM/YY
     if (orderData.expiration && orderData.expiration.includes('-')) {

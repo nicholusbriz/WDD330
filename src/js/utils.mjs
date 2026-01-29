@@ -112,7 +112,7 @@ export function alertMessage(message, scroll = true) {
   const main = document.querySelector('main');
   main.prepend(alert);
   
-  // Make sure they see the alert by scrolling to the top of the window
+
   if (scroll) {
     window.scrollTo(0, 0);
   }
